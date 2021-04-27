@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/setting_language"
+            android:title="@string/select_language"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/menu_favorite"
+            android:title="@string/favorite"
+            android:icon="@drawable/ic_heart_white"
+            app:showAsAction="ifRoom"/>
+
+</menu>
