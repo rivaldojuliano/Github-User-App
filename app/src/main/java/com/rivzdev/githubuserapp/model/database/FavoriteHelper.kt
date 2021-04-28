@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import com.rivzdev.githubuserapp.model.database.DatabaseContract.FavoriteColumns.Companion.LOGIN
 import com.rivzdev.githubuserapp.model.database.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
 import java.sql.SQLException
-import kotlin.Throws
 
 class FavoriteHelper(context: Context) {
     private var databaseHelper: DatabaseHelper = DatabaseHelper(context)

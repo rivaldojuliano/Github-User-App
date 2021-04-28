@@ -78,12 +78,9 @@ class DetailUserActivity : AppCompatActivity() {
             supportActionBar?.elevation = 0f
         }
 
-        val login = user.login
-        val avatar = user.avatar_url
-
         val values = ContentValues()
-        values.put(DatabaseContract.FavoriteColumns.LOGIN, login)
-        values.put(DatabaseContract.FavoriteColumns.AVATAR_URL, avatar)
+        values.put(DatabaseContract.FavoriteColumns.LOGIN, user.login)
+        values.put(DatabaseContract.FavoriteColumns.AVATAR_URL, user.avatar_url)
 
         binding.floatingButton.setOnClickListener {
             if (!statusFavorite) {
@@ -99,7 +96,7 @@ class DetailUserActivity : AppCompatActivity() {
             }
         }
 
-        val cursor: Cursor = favoriteHelper.queryById(login.toString())
+        val cursor: Cursor = favoriteHelper.queryById(user.login.toString())
         if (cursor.moveToNext()) {
             statusFavorite = true
             setStatusFavorite(statusFavorite)

@@ -26,7 +26,7 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
         fun bind(users: Users) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(users.avatar_url)
+                    .load(users.name)
                     .apply(RequestOptions().override(100, 100))
                     .into(circleImage)
 
@@ -46,7 +46,7 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bind(this.listFavorite[position])
+        holder.bind(listFavorite[position])
     }
 
     override fun getItemCount(): Int = this.listFavorite.size
