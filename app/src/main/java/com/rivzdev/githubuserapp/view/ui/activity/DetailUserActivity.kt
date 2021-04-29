@@ -1,8 +1,12 @@
 package com.rivzdev.githubuserapp.view.ui.activity
 
 import android.content.ContentValues
+import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -110,5 +114,24 @@ class DetailUserActivity : AppCompatActivity() {
         } else {
             binding.floatingButton.setImageResource(R.drawable.ic_heart_un_follow)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting_language -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+            R.id.menu_favorite -> {
+                val mIntent = Intent(this@DetailUserActivity, FavoriteActivity::class.java)
+                startActivity(mIntent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
