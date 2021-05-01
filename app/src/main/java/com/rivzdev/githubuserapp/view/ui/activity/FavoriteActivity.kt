@@ -62,12 +62,12 @@ class FavoriteActivity : AppCompatActivity() {
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             val favorite = deferredFavorite.await()
+            showLoading(false)
             if (favorite.size > 0) {
                 adapter.listFavorite = favorite
             } else {
                 adapter.listFavorite = ArrayList()
             }
-            showLoading(false)
         }
     }
 

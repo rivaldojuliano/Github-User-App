@@ -17,7 +17,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "GITHUB_TOKEN", '"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"')
+        buildConfigField("String", "GITHUB_TOKEN", '"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"')
     }
 
     buildTypes {

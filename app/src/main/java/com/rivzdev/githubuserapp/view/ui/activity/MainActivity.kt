@@ -2,7 +2,6 @@ package com.rivzdev.githubuserapp.view.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -94,8 +93,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.setting_language -> {
-                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            R.id.menu_settings -> {
+                val mIntent = Intent(this@MainActivity, SettingActivity::class.java)
                 startActivity(mIntent)
             }
             R.id.menu_favorite -> {

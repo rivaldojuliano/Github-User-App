@@ -8,5 +8,11 @@
     <string name="favorite">Favorit</string>
     <string name="text_add">Ditambahkan ke Favorit</string>
     <string name="text_remove">Dihapus dari Favorit</string>
-    <string name="menu_favorite">Favorite</string>
+    <string name="menu_favorite">Favorit</string>
+    <string name="alarm_setup">Mengulangi pengaturan alarm</string>
+    <string name="alarm_canceled">Alarm berulang Dibatalkan</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="menu_settings">Pengaturan Menu</string>
+    <string name="on">Aktif</string>
+    <string name="off">Tidak Aktif</string>
 </resources>
