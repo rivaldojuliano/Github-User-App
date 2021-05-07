@@ -1,6 +1,9 @@
 package com.rivzdev.githubuserapp.view.ui.activity
 
+import android.database.ContentObserver
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rivzdev.githubuserapp.databinding.ActivityFavoriteBinding
 import com.rivzdev.githubuserapp.helper.MappingHelper
 import com.rivzdev.githubuserapp.model.data.Users
+import com.rivzdev.githubuserapp.model.database.DatabaseContract.CONTENT_URI
 import com.rivzdev.githubuserapp.model.database.FavoriteHelper
 import com.rivzdev.githubuserapp.view.adapter.FavoriteAdapter
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +41,18 @@ class FavoriteActivity : AppCompatActivity() {
             rvFavorite.adapter = adapter
         }
 
+        val handlerThread = HandlerThread("DatabaseObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(selfChange: Boolean) {
+                loadFavoriteAsync()
+            }
+        }
+
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+
         if (savedInstanceState == null) {
             loadFavoriteAsync()
         } else {
@@ -58,7 +74,7 @@ class FavoriteActivity : AppCompatActivity() {
             val favoriteHelper = FavoriteHelper.getInstance(applicationContext)
             favoriteHelper.open()
             val deferredFavorite = async(Dispatchers.IO) {
-                val cursor = favoriteHelper.queryAll()
+                val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             val favorite = deferredFavorite.await()

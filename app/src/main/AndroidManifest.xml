@@ -3,6 +3,8 @@
     package="com.rivzdev.githubuserapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.rivzdev.githubuserapp.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.rivzdev.githubuserapp.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -11,13 +13,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUserApp">
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="com.rivzdev.githubuserapp"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.rivzdev.githubuserapp.READ_DATABASE"
+            android:writePermission="com.rivzdev.githubuserapp.WRITE_DATABASE"/>
+
         <receiver
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity android:name=".view.ui.activity.SettingActivity" />
-        <activity android:name=".view.ui.activity.FavoriteActivity" />
         <activity android:name=".view.ui.activity.FavoriteActivity" />
         <activity android:name=".view.ui.activity.DetailUserActivity" />
         <activity android:name=".view.ui.activity.MainActivity">

@@ -1,8 +1,9 @@
 package com.rivzdev.githubuserapp.view.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
-import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
@@ -16,8 +17,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.rivzdev.githubuserapp.R
 import com.rivzdev.githubuserapp.databinding.ActivityDetailUserBinding
+import com.rivzdev.githubuserapp.helper.MappingHelper
 import com.rivzdev.githubuserapp.model.data.Users
 import com.rivzdev.githubuserapp.model.database.DatabaseContract
+import com.rivzdev.githubuserapp.model.database.DatabaseContract.CONTENT_URI
 import com.rivzdev.githubuserapp.model.database.FavoriteHelper
 import com.rivzdev.githubuserapp.view.adapter.SectionPagerAdapter
 import com.rivzdev.githubuserapp.viewmodel.UserDetailViewModel
@@ -27,7 +30,8 @@ class DetailUserActivity : AppCompatActivity() {
     private lateinit var viewModel: UserDetailViewModel
 
     private var statusFavorite = false
-    private lateinit var favoriteHelper: FavoriteHelper
+    private lateinit var uriWithId: Uri
+    private var user: Users? = null
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -44,19 +48,17 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("Recycle")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
-        favoriteHelper.open()
-
-        val user = intent.getParcelableExtra<Users>(EXTRA_USER) as Users
+        user = intent.getParcelableExtra<Users>(EXTRA_USER) as Users
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
 
-        user.login?.let { viewModel.setDetailUser(it) }
+        user?.login?.let { viewModel.setDetailUser(it) }
         viewModel.getDetailUser().observe(this, {
             if (it != null) {
                 binding.apply {
@@ -83,26 +85,30 @@ class DetailUserActivity : AppCompatActivity() {
         }
 
         val values = ContentValues()
-        values.put(DatabaseContract.FavoriteColumns.LOGIN, user.login)
-        values.put(DatabaseContract.FavoriteColumns.AVATAR_URL, user.avatar_url)
+        values.put(DatabaseContract.FavoriteColumns.LOGIN, user?.login)
+        values.put(DatabaseContract.FavoriteColumns.AVATAR_URL, user?.avatar_url)
+
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.login)
 
         binding.floatingButton.setOnClickListener {
             if (!statusFavorite) {
                 statusFavorite = !statusFavorite
-                favoriteHelper.insert(values)
+                contentResolver.insert(CONTENT_URI, values)
                 setStatusFavorite(statusFavorite)
                 Toast.makeText(this, TEXT[0], Toast.LENGTH_SHORT).show()
             } else {
                 statusFavorite = !statusFavorite
-                favoriteHelper.deleteById(user.login.toString())
+                contentResolver.delete(uriWithId, null, null)
                 setStatusFavorite(statusFavorite)
                 Toast.makeText(this, TEXT[1], Toast.LENGTH_SHORT).show()
             }
         }
 
-        val cursor: Cursor = favoriteHelper.queryById(user.login.toString())
-        if (cursor.moveToNext()) {
+        val cursor = contentResolver.query(uriWithId, null, null, null, null)
+        if (cursor != null) {
             statusFavorite = true
+            user = MappingHelper.mapCursorToObject(cursor)
+            cursor.close()
             setStatusFavorite(statusFavorite)
         }
     }
