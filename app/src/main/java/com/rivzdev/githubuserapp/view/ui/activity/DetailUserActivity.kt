@@ -21,7 +21,6 @@ import com.rivzdev.githubuserapp.helper.MappingHelper
 import com.rivzdev.githubuserapp.model.data.Users
 import com.rivzdev.githubuserapp.model.database.DatabaseContract
 import com.rivzdev.githubuserapp.model.database.DatabaseContract.CONTENT_URI
-import com.rivzdev.githubuserapp.model.database.FavoriteHelper
 import com.rivzdev.githubuserapp.view.adapter.SectionPagerAdapter
 import com.rivzdev.githubuserapp.viewmodel.UserDetailViewModel
 
