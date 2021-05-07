@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Github User App</string>
+    <string name="search">Search</string>
+    <string name="tab_text1">Follower</string>
+    <string name="tab_text2">Following</string>
+    <string name="select_language">Select Language</string>
+    <string name="favorite">Favorite</string>
+    <string name="text_add">Add to Favorite</string>
+    <string name="text_remove">Remove from Favorite</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="alarm_setup">Repeating alarm set up</string>
+    <string name="alarm_canceled">Repeating alarm Canceled</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="menu_settings">Menu Settings</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+</resources>

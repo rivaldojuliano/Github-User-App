@@ -1,4 +1,4 @@
-package com.rivzdev.githubuserapp.view.adapter
+package com.rivzdev.consumerapp.view.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.rivzdev.githubuserapp.databinding.ItemRowFavoriteBinding
-import com.rivzdev.githubuserapp.model.data.Users
-import com.rivzdev.githubuserapp.view.ui.activity.DetailUserActivity
+import com.rivzdev.consumerapp.databinding.ItemRowFavoriteBinding
+import com.rivzdev.consumerapp.model.data.Users
+import com.rivzdev.consumerapp.view.ui.activity.DetailUserActivity
 
 class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     var listFavorite = ArrayList<Users>()

@@ -1,4 +1,4 @@
-package com.rivzdev.githubuserapp.view.ui.activity
+package com.rivzdev.consumerapp.view.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -15,16 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
-import com.rivzdev.githubuserapp.R
-import com.rivzdev.githubuserapp.databinding.ActivityDetailUserBinding
-import com.rivzdev.githubuserapp.helper.MappingHelper
-import com.rivzdev.githubuserapp.model.data.Users
-import com.rivzdev.githubuserapp.model.database.DatabaseContract
-import com.rivzdev.githubuserapp.model.database.DatabaseContract.CONTENT_URI
-import com.rivzdev.githubuserapp.view.adapter.SectionPagerAdapter
-import com.rivzdev.githubuserapp.viewmodel.UserDetailViewModel
+import com.rivzdev.consumerapp.R
+import com.rivzdev.consumerapp.databinding.ActivityDetailUserBinding
+import com.rivzdev.consumerapp.helper.MappingHelper
+import com.rivzdev.consumerapp.model.data.Users
+import com.rivzdev.consumerapp.model.database.DatabaseContract
+import com.rivzdev.consumerapp.model.database.DatabaseContract.CONTENT_URI
+import com.rivzdev.consumerapp.view.adapter.SectionPagerAdapter
+import com.rivzdev.consumerapp.viewmodel.UserDetailViewModel
 
 class DetailUserActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var viewModel: UserDetailViewModel
 
@@ -55,7 +56,8 @@ class DetailUserActivity : AppCompatActivity() {
 
         val user = intent.getParcelableExtra<Users>(EXTRA_USER) as Users
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            UserDetailViewModel::class.java)
 
         user.login?.let { viewModel.setDetailUser(it) }
         viewModel.getDetailUser().observe(this, {

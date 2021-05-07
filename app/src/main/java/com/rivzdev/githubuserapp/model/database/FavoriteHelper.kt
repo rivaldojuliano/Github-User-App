@@ -26,12 +26,6 @@ class FavoriteHelper(context: Context) {
         database = databaseHelper.writableDatabase
     }
 
-    fun close() {
-        databaseHelper.close()
-        if (database.isOpen)
-            database.close()
-    }
-
     fun queryAll(): Cursor {
         return database.query(
             DATABASE_TABLE,

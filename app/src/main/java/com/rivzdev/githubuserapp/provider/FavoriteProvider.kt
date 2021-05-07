@@ -22,7 +22,7 @@ class FavoriteProvider : ContentProvider() {
         init {
             sUriMatcher.addURI(AUTHORITY, TABLE_NAME, FAVORITE)
 
-            sUriMatcher.addURI(AUTHORITY, "$TABLE_NAME/#", FAVORITE_ID)
+            sUriMatcher.addURI(AUTHORITY, "$TABLE_NAME/*", FAVORITE_ID)
         }
     }
 
